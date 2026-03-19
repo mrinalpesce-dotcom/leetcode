@@ -1,3 +1,8 @@
+#include <string>
+#include <climits>
+#include <cctype>
+using namespace std;
+
 class Solution {
 public:
     int myAtoi(string s) {
