@@ -29,7 +29,7 @@ public:
 
             if(nums[mid] == target){
                 ans = mid;
-                low = mid + 1;    // go RIGHT
+                low = mid + 1;   
             }
             else if(nums[mid] < target)
                 low = mid + 1;
