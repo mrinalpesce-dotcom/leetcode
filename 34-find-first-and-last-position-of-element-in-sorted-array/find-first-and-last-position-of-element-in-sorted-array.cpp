@@ -1,20 +1,47 @@
 class Solution {
 public:
-    vector<int> searchRange(vector<int>& nums, int target) {
-        
-        int first=-1, last =-1;
 
-        for(int i=0;i<nums.size();i++){
-            if(nums[i]==target){
-            if(first==-1){
-                first=i;
+    int findFirst(vector<int>& nums, int target){
+        int low = 0, high = nums.size()-1;
+        int ans = -1;
 
+        while(low <= high){
+            int mid = (low + high) / 2;
+
+            if(nums[mid] == target){
+                ans = mid;
+                high = mid - 1;   // go LEFT
             }
-            last=i;
+            else if(nums[mid] < target)
+                low = mid + 1;
+            else
+                high = mid - 1;
         }
-
-        
+        return ans;
     }
-    return{ first,last};
+
+    int findLast(vector<int>& nums, int target){
+        int low = 0, high = nums.size()-1;
+        int ans = -1;
+
+        while(low <= high){
+            int mid = (low + high) / 2;
+
+            if(nums[mid] == target){
+                ans = mid;
+                low = mid + 1;    // go RIGHT
+            }
+            else if(nums[mid] < target)
+                low = mid + 1;
+            else
+                high = mid - 1;
+        }
+        return ans;
+    }
+
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int first = findFirst(nums, target);
+        int last  = findLast(nums, target);
+        return {first, last};
     }
 };
