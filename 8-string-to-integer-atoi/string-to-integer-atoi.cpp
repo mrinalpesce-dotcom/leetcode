@@ -1,34 +1,38 @@
-#include <string>
-#include <climits>
-#include <cctype>
-using namespace std;
-
 class Solution {
 public:
     int myAtoi(string s) {
-        int i = 0, n = s.size();
+        int i = 0;
+        int n = s.length();
 
-        // skip spaces
-        while(i < n && s[i] == ' ') i++;
+        // Skip leading spaces
+        while (i < n && s[i] == ' ') {
+            i++;
+        }
 
-        // sign
+        // Check sign
         int sign = 1;
-        if(i < n && (s[i] == '+' || s[i] == '-')){
-            if(s[i] == '-') sign = -1;
+        if (i < n && (s[i] == '+' || s[i] == '-')) {
+            if (s[i] == '-') {
+                sign = -1;
+            }
             i++;
         }
 
         long long num = 0;
 
-        while(i < n && isdigit(s[i])){
-            num = num * 10 + (s[i] - '0');
+        // Read digits
+        while (i < n && isdigit(s[i])) {
+            int digit = s[i] - '0';
 
-            if(num * sign > INT_MAX) return INT_MAX;
-            if(num * sign < INT_MIN) return INT_MIN;
+            // Overflow check
+            if (num > (INT_MAX - digit) / 10) {
+                return (sign == 1) ? INT_MAX : INT_MIN;
+            }
 
+            num = num * 10 + digit;
             i++;
         }
 
-        return num * sign;
+        return sign * num;
     }
 };
