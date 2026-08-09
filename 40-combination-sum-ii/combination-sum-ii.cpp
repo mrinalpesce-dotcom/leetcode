@@ -1,9 +1,10 @@
 class Solution {
 public:
 void solve(int ind,int target,vector<int> &arr,vector<int> &ds,vector<vector<int>> &ans){
-   
+ 
     if(target==0){
         ans.push_back(ds);
+        return;
     }
     for(int i=ind ; i<arr.size();i++){
         if(i>ind && arr[i]==arr[i-1])
