@@ -1,30 +1,32 @@
 class Solution {
 public:
     vector<int> nextGreaterElements(vector<int>& nums) {
-        int n=nums.size();
-        vector<int> ans;
 
-        for(int i=0;i<n;i++){
-                 bool found =false;
-            for(int j=1;j<n;j++){
+        stack<int> st;
 
-                int index=(i+j)%nums.size();
+        int n = nums.size();
 
+        vector<int> ans(n, -1);
 
-                if(nums[index]>nums[i]){
-                    ans.push_back(nums[index]);
-                    found=true;
-                    break;
-                }
+        for(int i = 2*n-1; i >= 0; i--) {
+
+            // Get actual index of nums
+            int index = i % n;
+
+            // Remove smaller/equal elements
+            while(!st.empty() && st.top() <= nums[index]) {
+                st.pop();
             }
-                
-                   if( found==false){
-                    ans.push_back(-1);
-                
+
+            // Only store answer during first pass
+            if(i < n && !st.empty()) {
+                ans[index] = st.top();
             }
+
+            // Put current element into stack
+            st.push(nums[index]);
         }
+
         return ans;
     }
-        
-    
 };
